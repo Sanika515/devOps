@@ -1,0 +1,197 @@
+Dockerfile for a simple application
+
+
+mkdir docker-practicals
+cd docker-practicals
+
+mkdir p2 p5 p10 p14 p20
+
+
+# 🔷 Practical 2
+
+## **Using Docker, create a Dockerfile for a simple application and build an image**
+
+---
+
+# 🔹 Aim
+
+To create a Dockerfile for a simple web application and build a Docker image using Docker.
+
+---
+
+# 🔹 Theory
+
+### 🔸 Docker
+
+* Docker is a platform used to develop, ship, and run applications in **containers**.
+* Containers package application code along with dependencies.
+* They ensure the application runs the same on any system.
+
+---
+
+### 🔸 Docker Image
+
+* A Docker image is a **read-only template** used to create containers.
+* It contains application code, libraries, and dependencies.
+
+---
+
+### 🔸 Dockerfile
+
+* A Dockerfile is a **text file with instructions** to build a Docker image.
+
+#### Common Instructions:
+
+* `FROM` → base image
+* `COPY` → copy files into container
+* `RUN` → execute commands
+* `CMD` → default command to run container
+
+---
+
+### 🔸 Nginx
+
+* Nginx is a lightweight **web server** used to serve HTML files.
+* In this practical, it is used to display our web page.
+
+---
+
+# 🔹 Requirements
+
+* Docker installed and running
+* Terminal (WSL / Linux / CMD)
+
+---
+
+# 🔹 Steps
+
+## Step 1: Create Project Directory
+
+```bash
+mkdir p2-docker-app
+cd p2-docker-app
+```
+
+---
+
+## Step 2: Create HTML File
+
+```bash
+vim index.html
+```
+
+Paste:
+
+```html
+<h1>Hello from Docker Practical 2</h1>
+```
+
+Save and exit (`Esc → :wq`)
+
+---
+
+## Step 3: Create Dockerfile
+
+```bash
+vim Dockerfile
+```
+
+Paste:
+
+```dockerfile
+FROM nginx:latest
+COPY . /usr/share/nginx/html
+```
+
+---
+
+## Step 4: Build Docker Image
+
+```bash
+docker build -t p2-image .
+```
+
+### 🔸 Explanation:
+
+* `-t p2-image` → gives name to image
+* `.` → current directory (contains Dockerfile)
+
+---
+
+## Step 5: Verify Image
+
+```bash
+docker images
+```
+
+👉 You should see:
+
+```
+p2-image    latest
+```
+
+---
+
+# 🔹 Output
+
+* Docker image successfully created
+* Image visible in `docker images` list
+
+---
+
+# 🔹 Working Explanation
+
+1. Docker reads instructions from Dockerfile
+2. Pulls base image (`nginx`)
+3. Copies HTML file into container
+4. Builds a new image (`p2-image`)
+5. Image is ready to run as a container
+
+---
+
+# 🔹 Advantages
+
+* Easy deployment
+* Platform independent
+* Fast and lightweight
+* Reproducible builds
+
+---
+
+# 🔹 Conclusion
+
+A Dockerfile was successfully created for a simple web application, and a Docker image was built using Docker commands.
+
+---
+
+# 🔹 Viva Questions (Important)
+
+### Q1: What is Docker?
+
+👉 A platform to run applications in containers.
+
+### Q2: What is a Dockerfile?
+
+👉 A file containing instructions to build a Docker image.
+
+### Q3: What is an image?
+
+👉 A template used to create containers.
+
+### Q4: Difference between image and container?
+
+* Image → blueprint
+* Container → running instance
+
+### Q5: What does `FROM nginx` do?
+
+👉 It uses Nginx as the base image.
+
+---
+
+If you want, I can also give:
+✔ Output screenshots format
+✔ Diagram (Docker workflow)
+✔ Short 5-mark answer version
+
+Just tell me 👍

@@ -1,0 +1,41 @@
+Scale a Kubernetes deployment and verify pod status
+🔹 Aim
+
+To scale a Kubernetes deployment and verify pod status.
+
+🔹 Theory
+🔸 Scaling
+Increasing or decreasing number of pods
+Helps handle traffic/load
+🔸 Replica
+Number of pod copies running
+🔹 Steps
+
+
+Step 1: Create Deployment
+			kubectl create deployment myapp1 --image=nginx
+Step 2: Scale Deployment
+			kubectl scale deployment myapp1 --replicas=3
+Step 3: Verify Pods
+			kubectl get pods
+Step 4: Check Deployment Status
+			kubectl get deployment
+Step 5: Check services status
+			kubectl get services
+🔹 Output
+Pods increased to 3
+Deployment updated successfully
+🔹 Working Explanation
+Kubernetes creates additional pods
+Load gets distributed automatically
+🔹 Conclusion
+
+Deployment scaling was successfully performed and verified.
+
+🔹 Viva Questions
+
+Q1: What is scaling?
+👉 Increasing/decreasing pods.
+
+Q2: What is replica?
+👉 Number of pod instances.

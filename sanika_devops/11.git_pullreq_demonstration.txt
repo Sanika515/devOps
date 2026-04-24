@@ -1,0 +1,98 @@
+Step 1: Create Repository on GitHub
+Go to GitHub
+Click “New Repository”
+Fill details:
+Repo Name: my-project
+Public ✅ (for demo)
+Add README ✅
+Click Create Repository
+
+👉 Now your repo is live
+
+🔹 Step 2: Clone Repository to Local System
+		git clone https://github.com/your-username/my-project.git
+		cd my-project
+🔹 Step 3: Create Initial File (Project Setup)
+		vim index.html
+
+Add some basic code inside.
+
+🔹 Step 4: Commit Initial Code
+		git add .
+		git commit -m "Initial project setup"
+		git push origin main
+🔹 Step 5: Create Feature Branch (IMPORTANT)
+		git checkout -b feature-homepage
+
+👉 This is where actual development happens
+
+🔹 Step 6: Make Changes
+
+Example:
+
+Add homepage UI
+Update HTML/CSS
+🔹 Step 7: Commit Feature Work
+		git add .
+		git commit -m "Added homepage design"
+🔹 Step 8: Push Feature Branch
+		git push origin feature-homepage
+
+👉 Now GitHub detects a new branch
+
+🔹 Step 9: Create Pull Request (PR)
+
+On GitHub:
+
+Click Compare & Pull Request
+Add:
+Title: Homepage UI added
+Description: what changes done
+Click Create Pull Request
+🔹 Step 10: Simulate Collaboration (VERY IMPORTANT FOR DEMO)
+
+Now assume your teammate exists 😄
+
+They will:
+
+Review your PR
+
+Add comments
+Example:
+
+“Improve button styling”
+
+🔹 Step 11: Make Changes Based on Feedback
+git add .
+git commit -m "Improved button styling"
+git push origin feature-homepage
+
+👉 PR auto-updates (this is key point 🔥)
+
+🔹 Step 12: Merge Pull Request
+
+On GitHub:
+
+Click Merge Pull Request
+Confirm merge
+
+👉 Code goes into main
+
+🔹 Step 13: Pull Updated Code Locally
+		git checkout main
+git pull origin main
+🔹 Step 14: Delete Feature Branch (Clean Workflow)
+git branch -d feature-homepage
+🔥 BONUS (Make Your Demo Look PRO LEVEL)
+👥 Add Collaborator
+Go to repo → Settings
+Click Collaborators
+Add teammate GitHub username
+
+👉 Now they can also:
+
+Create branches
+Raise PRs
+⚡ REAL WORKFLOW (Explain this in viva)
+
+“We created a repository on GitHub, cloned it locally, followed a feature-branch strategy, pushed changes, raised a pull request, performed code review, and merged the changes into the main branch.”

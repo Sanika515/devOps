@@ -1,0 +1,130 @@
+No problem—here’s **Practical 14 again with completely different names** (ready to submit) 👇
+
+---
+
+# 🔷 Practical 14
+
+## **Create a Docker image using a Dockerfile and push it to a repository (Docker Hub)**
+
+---
+
+# 🔹 Aim
+
+To create a Docker image using a Dockerfile and push it to a Docker Hub repository.
+
+---
+
+# 🔹 Requirements
+
+* Docker installed
+* Docker Hub account
+* Internet connection
+
+---
+
+# 🔹 Steps
+
+## Step 1: Create Project Folder
+
+```bash id="c7a9p2"
+mkdir web-push-project
+cd web-push-project
+```
+
+---
+
+## Step 2: Create HTML File
+
+```bash id="7g3n2k"
+vim app.html
+```
+
+Paste:
+
+```html id="p1d0as"
+<h1>My Docker Push Project</h1>
+```
+
+---
+
+## Step 3: Create Dockerfile
+
+```bash id="8u2lqz"
+vim Dockerfile
+```
+
+Paste:
+
+```dockerfile id="m6o4yr"
+FROM nginx:latest
+COPY . /usr/share/nginx/html
+```
+
+---
+
+## Step 4: Build Docker Image
+
+```bash id="z3v6bw"
+docker build -t webpush-image .
+```
+
+---
+
+## Step 5: Login to Docker Hub
+
+```bash id="2r9yts"
+docker login
+```
+
+---
+
+## Step 6: Tag Image
+
+```bash id="n8k4cj"
+docker tag webpush-image yourusername/webpush-image
+```
+
+---
+
+## Step 7: Push Image
+
+```bash id="q2w5df"
+docker push yourusername/webpush-image
+```
+
+---
+
+## Step 8: Verify
+
+* Open [https://hub.docker.com](https://hub.docker.com)
+* Go to **Repositories**
+* Check `webpush-image`
+
+---
+
+# 🔹 Output
+
+* Image built successfully
+* Image tagged properly
+* Image pushed to Docker Hub
+* Repository visible online
+
+---
+
+# 🔹 Conclusion
+
+Docker image was successfully created and pushed to Docker Hub using a Dockerfile.
+
+---
+
+✔ Changed again:
+
+* Folder → `web-push-project`
+* File → `app.html`
+* Image → `webpush-image`
+
+---
+
+If you want, I can now do:
+✔ Practical 20 (last one) with variations
+✔ Or give **all practicals in one final PDF-style format** 👍

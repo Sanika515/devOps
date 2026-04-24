@@ -1,0 +1,63 @@
+Practical 1
+Install and configure a web server using Ansible
+🔹 Aim
+
+To install and configure a web server using Ansible playbook.
+
+🔹 Theory
+🔸 Ansible
+Agentless automation tool
+Uses SSH (or local connection)
+🔸 Playbook
+YAML file defining tasks
+
+
+
+Step 0: Install Ansible
+On Ubuntu / WSL:
+			sudo apt update
+			sudo apt install ansible -y
+
+			ansible --version
+
+
+Create file:		
+			vim hosts
+
+Paste:
+
+			[web]
+			localhost ansible_connection=local
+Step 1: 
+
+			vim install_nginx.yml
+
+Replace with this:
+
+- name: Install and configure Nginx with custom HTML
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create custom index.html
+      copy:
+        content: "<h1>Hello, this server was configured by Ansible 🚀</h1>"
+        dest: /var/www/html/index.html
+🔹 Run Playbook
+			ansible-playbook -i hosts install_nginx.yml
+
+			then on http://localhost on web-browser
+
+

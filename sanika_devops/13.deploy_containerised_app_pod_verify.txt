@@ -1,0 +1,32 @@
+Practical 13
+Create deployment for containerized app and verify pod status
+🔹 Aim
+
+To create a Kubernetes deployment for a containerized application and verify pod status.
+
+🔹 Theory
+🔸 Containerized Application
+Application packaged with dependencies using Docker
+🔸 kubectl
+CLI tool to interact with Kubernetes
+🔹 Steps
+Step 1: Create Deployment
+		kubectl create deployment web-app --image=nginx
+Step 2: Verify Pods
+		kubectl get pods
+Step 3: Describe Pod (Detailed Info)
+		kubectl describe pod web-app
+🔹 Output
+Deployment created
+Pods running successfully
+🔹 Conclusion
+
+Containerized application deployed and verified using Kubernetes.
+
+🔹 Viva Questions
+
+Q1: What is kubectl?
+👉 Command-line tool for Kubernetes.
+
+Q2: What does describe pod do?
+👉 Shows detailed pod info.

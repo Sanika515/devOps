@@ -1,0 +1,57 @@
+Practical 4
+Using Kubernetes, create a deployment and expose it using a service
+🔹 Aim
+
+To create a Kubernetes deployment and expose it using a service.
+
+🔹 Theory
+🔸 Kubernetes
+
+Kubernetes (K8s) is a container orchestration platform used to automate deployment, scaling, and management of containerized applications.
+
+🔸 Deployment
+A Deployment manages a set of pods.
+Ensures the desired number of pods are always running.
+Supports updates and scaling.
+🔸 Pod
+Smallest unit in Kubernetes.
+Contains one or more containers.
+🔸 Service
+Exposes pods to the outside world or internally.
+Types:
+ClusterIP (default)
+NodePort
+LoadBalancer
+🔹 Requirements
+Kubernetes installed (Minikube / Kubeadm)
+kubectl CLI tool
+🔹 Steps
+Step 1: Create Deployment
+			kubectl create deployment my-app --image=nginx
+Step 2: Verify Deployment
+			kubectl get deployments
+			kubectl get pods
+Step 3: Expose Deployment
+			kubectl expose deployment my-app --type=NodePort --port=80
+Step 4: Check Service
+			kubectl get services
+step 5:
+			kubectl port-forward service/my-app 8081:80
+🔹 Output
+Deployment created successfully
+Pods running
+Service exposed and accessible
+🔹 Conclusion
+
+Kubernetes deployment was created and exposed using a service successfully.
+
+🔹 Viva Questions
+
+Q1: What is Kubernetes?
+👉 Container orchestration tool.
+
+Q2: What is a pod?
+👉 Smallest deployable unit in K8s.
+
+Q3: What is a service?
+👉 Used to expose pods.

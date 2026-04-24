@@ -1,0 +1,35 @@
+🔷 Practical 19
+Deploy containerized application and expose using service
+🔹 Aim
+
+To deploy a containerized application and expose it using a Kubernetes service.
+
+🔹 Theory
+🔸 NodePort
+Exposes service on a port of each node
+Accessible via <NodeIP>:Port
+🔹 Steps
+Step 1: Create Deployment
+			kubectl create deployment sample-app --image=nginx
+Step 2: Expose Deployment
+			kubectl expose deployment sample-app --type=NodePort --port=80
+Step 3: Verify
+			kubectl get services
+			kubectl get pods
+Step 4: Access Application
+			kubectl port-forward service/sample-app 8080:80
+🔹 Output
+Application deployed
+Service created
+Accessible via browser
+🔹 Conclusion
+
+Containerized application deployed and exposed successfully using Kubernetes.
+
+🔹 Viva Questions
+
+Q1: What is NodePort?
+👉 Exposes service externally.
+
+Q2: Why use services?
+👉 To access pods reliably.

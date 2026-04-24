@@ -1,0 +1,211 @@
+mkdir docker-practicals
+cd docker-practicals
+
+mkdir p2 p5 p10 p14 p20
+
+
+
+Here is **Practical 5 (complete, exam-ready)** in the same format 👇
+
+---
+
+# 🔷 Practical 5
+
+## **Demonstrate Docker Image Management (build, list, tag, and remove images)**
+
+---
+
+# 🔹 Aim
+
+To perform Docker image management operations such as building, listing, tagging, and removing images.
+
+---
+
+# 🔹 Theory
+
+### 🔸 Docker Image
+
+* A Docker image is a **read-only template** used to create containers.
+* It includes application code, dependencies, and configuration.
+
+---
+
+### 🔸 Image Management
+
+Docker provides commands to manage images efficiently:
+
+* **Build** → Create image from Dockerfile
+* **List** → View available images
+* **Tag** → Create alias/name for image
+* **Remove** → Delete unused images
+
+---
+
+### 🔸 Why Image Management is Important
+
+* Saves storage space
+* Organizes images using tags
+* Helps in version control
+* Useful for deployment and sharing
+
+---
+
+# 🔹 Requirements
+
+* Docker installed and running
+* Basic Dockerfile (simple app)
+
+---
+
+# 🔹 Steps
+
+## Step 1: Create Project Folder
+
+```bash
+mkdir p5-image-management
+cd p5-image-management
+```
+
+---
+
+## Step 2: Create HTML File
+
+```bash
+vim index.html
+```
+
+Paste:
+
+```html
+<h1>Docker Image Management Practical</h1>
+```
+
+---
+
+## Step 3: Create Dockerfile
+
+```bash
+vim Dockerfile
+```
+
+Paste:
+
+```dockerfile
+FROM nginx:latest
+COPY . /usr/share/nginx/html
+```
+
+---
+
+## Step 4: Build Docker Image
+
+```bash
+docker build -t p5-image .
+```
+
+---
+
+## Step 5: List Docker Images
+
+```bash
+docker images
+```
+
+👉 Displays:
+
+* Repository name
+* Tag
+* Image ID
+* Size
+
+---
+
+## Step 6: Tag Docker Image
+
+```bash
+docker tag p5-image p5-image:v1
+```
+
+👉 Creates a new version/tag of same image
+
+---
+
+## Step 7: Verify Tagged Image
+
+```bash
+docker images
+```
+
+👉 You will see:
+
+* `p5-image`
+* `p5-image:v1`
+
+---
+
+## Step 8: Remove Docker Image
+
+```bash
+docker rmi p5-image:v1
+```
+
+👉 Deletes the tagged image
+
+---
+
+# 🔹 Output
+
+* Image created successfully
+* Images listed using `docker images`
+* Image tagged with version
+* Tagged image removed successfully
+
+---
+
+# 🔹 Working Explanation
+
+1. Dockerfile is used to build an image
+2. `docker images` shows all stored images
+3. Tagging creates another reference for same image
+4. Removing deletes image from local storage
+
+---
+
+# 🔹 Advantages
+
+* Better image organization
+* Efficient storage usage
+* Easy version management
+* Useful for deployment pipelines
+
+---
+
+# 🔹 Conclusion
+
+Docker image management operations such as building, listing, tagging, and removing images were successfully performed.
+
+---
+
+# 🔹 Viva Questions
+
+### Q1: What is `docker build`?
+
+👉 Creates an image from a Dockerfile.
+
+### Q2: What does `docker images` do?
+
+👉 Lists all Docker images.
+
+### Q3: What is tagging?
+
+👉 Assigning a new name/version to an image.
+
+### Q4: Command to remove image?
+
+👉 `docker rmi <image-name>`
+
+### Q5: Can one image have multiple tags?
+
+👉 Yes
+
+-

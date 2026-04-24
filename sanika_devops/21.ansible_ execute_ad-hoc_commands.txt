@@ -1,0 +1,98 @@
+🔷 Practical 21
+Create an inventory and execute ad-hoc commands using Ansible
+🔹 Aim
+
+To create an inventory file and execute ad-hoc commands using Ansible.
+
+🔹 Theory
+🔸 Inventory
+Defines target hosts
+Can be grouped (e.g., web, db)
+🔸 Ad-hoc Commands
+One-line commands
+Used for quick tasks (no playbook needed)
+
+👉 Think:
+“Quick action without writing YAML”
+
+🔹 Requirements
+Ansible installed
+Terminal (Linux / WSL)
+🔹 Steps
+✅ Step 1: Create Inventory File
+				vim my_inventory.ini
+
+Paste:
+
+				[web]
+				localhost ansible_connection=local
+
+Save:
+
+Esc → :wq
+✅ Step 2: Test Connection (Ping)
+				ansible web -i my_inventory.ini -m ping
+
+👉 Output:
+
+localhost | SUCCESS => {
+    "ping": "pong"
+}
+✅ Step 3: Install Package (Ad-hoc)
+				ansible web -i my_inventory.ini -m apt -a "name=nginx state=present" --become
+
+👉 Installs nginx instantly
+
+✅ Step 4: Run System Command
+				ansible web -i my_inventory.ini -m command -a "uptime"
+
+👉 Output shows system uptime
+
+✅ Step 5: Create File (Optional Demo)
+				ansible web -i my_inventory.ini -m copy -a "content='Hello from Adhoc 🚀' dest=/tmp/test.txt"
+
+
+🔹 Output
+Inventory created successfully
+Ping command executed
+Package installed
+Commands executed on target host
+🔹 Working Explanation
+Inventory defines target host (web)
+Ad-hoc command uses:
+-m → module
+-a → arguments
+Command runs directly without playbook
+🔹 Conclusion
+
+Ad-hoc commands were successfully executed using Ansible without using a playbook.
+
+🔹 Viva Questions
+
+Q1: What is an ad-hoc command?
+👉 One-line command used for quick execution.
+
+Q2: When do we use ad-hoc commands?
+👉 For quick tasks like install, restart, check status.
+
+Q3: Difference between playbook and ad-hoc?
+
+Playbook → structured automation
+Ad-hoc → quick execution
+🔥 Viva Killer Line
+
+“Ad-hoc commands are useful for quick operations, while playbooks are used for reusable automation.”
+
+⚡ Common Mistakes
+❌ Forgetting -i → no inventory
+❌ Not using --become → permission error
+❌ Wrong module name
+💡 Real Talk
+
+Ad-hoc is like:
+
+Quick WhatsApp message 📩
+
+Playbook is like:
+
+Full email campaign 📧

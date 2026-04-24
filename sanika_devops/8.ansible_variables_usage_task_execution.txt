@@ -1,0 +1,107 @@
+🔷 Practical 8
+Create an inventory file and demonstrate variable usage and task execution in Ansible
+🔹 Aim
+
+To create an inventory file and demonstrate the use of variables and task execution in Ansible.
+
+🔹 Theory
+🔸 Inventory File
+Contains list of target machines (hosts)
+Organized into groups
+🔸 Variables
+Used to store reusable values
+Makes playbooks dynamic and flexible
+🔸 Task Execution
+Tasks are executed sequentially on defined hosts
+🔹 Requirements
+Ansible installed
+Terminal (Linux / WSL)
+🔹 Steps
+✅ Step 1: Create Inventory File
+					vim hosts
+
+Paste:
+
+[web]
+localhost ansible_connection=local
+
+ Using localhost avoids SSH complexity.
+
+✅ Step 2: Create Playbook with Variables
+					vim variable_demo.yml
+
+Paste:
+
+- name: Variable Demo Playbook
+  hosts: web
+  become: yes
+
+  vars:
+    pkg_name: nginx
+    message: "Hello from Ansible Variables "
+
+  tasks:
+    - name: Install package using variable
+      apt:
+        name: "{{ pkg_name }}"
+        state: present
+        update_cache: yes
+
+    - name: Create HTML file with variable message
+      copy:
+        content: "<h1>{{ message }}</h1>"
+        dest: /var/www/html/index.html
+
+✅ Step 3: Run Playbook
+				ansible-playbook -i hosts variable_demo.yml
+
+
+🔹 Step 4: Verify Output
+
+			Open browser:
+
+				http://localhost
+
+👉 Output:
+
+Hello from Ansible Variables
+
+
+🔹 Output
+Inventory file created
+Variables used successfully
+Tasks executed correctly
+Web page displayed using variable
+🔹 Working Explanation
+Inventory defines target host (localhost)
+Variables store package name & message
+Playbook installs nginx
+HTML file created using variable
+Output verified in browser
+🔹 Conclusion
+
+Inventory file was created and variables were successfully used to execute tasks in Ansible.
+
+🔹 Viva Questions
+
+Q1: What is an inventory file?
+👉 A file that defines target systems.
+
+Q2: What are variables in Ansible?
+👉 Dynamic values used in playbooks.
+
+Q3: Why use variables?
+👉 To make playbooks reusable and flexible.
+
+🔥 Pro Tip (Exam Differentiator)
+
+If they ask deeper:
+
+“Where else can variables be defined?”
+
+Answer:
+
+Playbook
+Inventory
+Command line
+Role defaults

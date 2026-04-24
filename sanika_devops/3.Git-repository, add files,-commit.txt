@@ -1,0 +1,68 @@
+Step-by-Step Procedure (What We Did)
+Step 1: Create Project Folder
+				mkdir exp-3-git
+				cd exp-3-git
+Step 2: Initialize Git Repository
+				git init
+
+👉 This creates a local Git repository.
+
+Step 3: Create a File
+				vim index.html
+
+Add:
+
+				<h1>Hello from GitHub Practical</h1>
+
+Save and exit.
+
+Step 4: Add File to Staging Area
+				git add index.html
+Step 5: First Commit
+				git commit -m "Initial commit-added index.html"
+
+👉 First snapshot of project.
+
+Step 6: Create Repository on GitHub
+Open GitHub
+Click New Repository
+Name: exp-3-git
+Create repo
+Step 7: Link Local Repo to GitHub
+				git remote add origin https://github.com/Sanika515/exp-3-git.git
+Step 8: Rename Branch to Main
+				git branch -M main
+Step 9: Pull Remote Changes (Important Fix)
+				git pull origin main --allow-unrelated-histories
+
+👉 This solved the “rejected push” error.
+
+Step 10: Push Code to GitHub
+				git push -u origin main
+
+👉 Code uploaded successfully.
+
+Step 11: Modify File
+				vim index.html
+
+Update content:
+
+				<h1>Updated GitHub Practical File</h1>
+Step 12: Add Changes
+				git add index.html
+Step 13: Second Commit
+				git commit -m "Updated github practical file"
+Step 14: Push Updated Code
+				git push
+
+
+
+🔹 Final Output
+Repository created on GitHub
+File uploaded successfully
+Two commits visible:
+Initial commit
+Updated commit
+🔥 One-line Summary (for viva)
+
+“We created a Git repository, added a file, committed it, linked it to GitHub, pushed the code, modified the file, and committed again to track changes.”

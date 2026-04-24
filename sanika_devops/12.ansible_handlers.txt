@@ -1,0 +1,77 @@
+Step1: 
+			vim my_inventory.ini
+
+Paste exactly:
+
+			[web]
+			localhost ansible_connection=local
+
+🔹 STEP 4: Verify Inventory (VERY IMPORTANT)
+			ansible-inventory -i my_inventory.ini --list
+
+
+🔹 STEP 5: Create Handler Playbook
+			vim handler_demo.yml
+
+Paste:
+
+- name: Handler Demo Playbook
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Update HTML file
+      copy:
+        content: "<h1>Hello from Handler 🚀</h1>"
+        dest: /var/www/html/index.html
+      notify: restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+Save:
+
+Esc → :wq
+🔹 STEP 6: Run Playbook
+			ansible-playbook -i my_inventory.ini handler_demo.yml
+
+🔹 STEP 7: Expected Output (FIRST RUN)
+
+You should see:
+
+changed in HTML task
+RUNNING HANDLER line
+🔹 STEP 8: Verify in Browser
+
+Open:
+
+http://localhost
+
+👉 You should see:
+
+Hello from Handler 🚀
+🔹 STEP 9: Run Again (IMPORTANT)
+ansible-playbook -i my_inventory.ini handler_demo.yml
+
+👉 Now:
+
+No changed
+No handler execution
+🧠 FINAL UNDERSTANDING
+First Run:
+File created → change detected
+Handler runs ✅
+Second Run:
+No change
+Handler NOT triggered ❌
+
+👉 This = idempotency

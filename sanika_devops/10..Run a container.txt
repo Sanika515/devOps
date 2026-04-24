@@ -1,0 +1,214 @@
+mkdir docker-practicals
+cd docker-practicals
+
+mkdir p2 p5 p10 p14 p20
+
+
+Here is your **Practical (Run container, map ports, verify deployment)** in full exam format 👇
+
+---
+
+# 🔷 Practical 10
+
+## **Run a container from a Docker image, map ports, and verify application deployment**
+
+---
+
+# 🔹 Aim
+
+To run a Docker container from an image, map ports between host and container, and verify the application deployment.
+
+---
+
+# 🔹 Theory
+
+### 🔸 Docker Container
+
+* A container is a **running instance of a Docker image**.
+* It executes the application in an isolated environment.
+
+---
+
+### 🔸 Port Mapping
+
+* Used to connect container ports to host ports.
+* Syntax:
+
+```bash
+docker run -p <host_port>:<container_port>
+```
+
+👉 Example:
+
+* `8080:80`
+* Host port = 8080
+* Container port = 80 (inside container)
+
+---
+
+### 🔸 Detached Mode
+
+* `-d` runs container in background
+
+---
+
+### 🔸 Nginx
+
+* Web server used to serve HTML content
+* Runs on port **80** inside container
+
+---
+
+# 🔹 Requirements
+
+* Docker installed
+* Docker image available (or create one)
+
+---
+
+# 🔹 Steps
+
+## Step 1: Create Project Folder
+
+```bash id="9wz7v8"
+mkdir p10-container-run
+cd p10-container-run
+```
+
+---
+
+## Step 2: Create HTML File
+
+```bash id="wnkm5m"
+vim index.html
+```
+
+Paste:
+
+```html id="u6f7cq"
+<h1>Docker Container Deployment Successful</h1>
+```
+
+---
+
+## Step 3: Create Dockerfile
+
+```bash id="x4vphd"
+vim Dockerfile
+```
+
+Paste:
+
+```dockerfile id="8c7gci"
+FROM nginx:latest
+COPY . /usr/share/nginx/html
+```
+
+---
+
+## Step 4: Build Docker Image
+
+```bash id="f3o6j1"
+docker build -t p10-image .
+```
+
+---
+
+## Step 5: Run Docker Container with Port Mapping
+
+```bash id="1lt9h5"
+docker run -d -p 8080:80 --name p10-container p10-image
+```
+
+### 🔸 Explanation:
+
+* `-d` → run in background
+* `-p 8080:80` → map ports
+* `--name` → assign container name
+
+---
+
+## Step 6: Verify Running Container
+
+```bash id="i6y14q"
+docker ps
+```
+
+👉 Shows running containers
+
+---
+
+## Step 7: Access Application
+
+Open browser:
+
+```id="cv7x3r"
+http://localhost:8080
+```
+
+👉 You should see your HTML output
+
+---
+
+# 🔹 Output
+
+* Container is running
+* Port mapping successful
+* Web application accessible in browser
+
+---
+
+# 🔹 Working Explanation
+
+1. Docker builds image from Dockerfile
+2. Container is created from image
+3. Port mapping connects host and container
+4. Nginx serves the HTML page
+5. Browser displays output
+
+---
+
+# 🔹 Advantages
+
+* Easy deployment
+* Isolation of application
+* Accessible via browser
+* Fast startup
+
+---
+
+# 🔹 Conclusion
+
+A Docker container was successfully run from an image, ports were mapped, and the application deployment was verified using a web browser.
+
+---
+
+# 🔹 Viva Questions
+
+### Q1: What is a container?
+
+👉 Running instance of an image
+
+### Q2: What is port mapping?
+
+👉 Connecting host port to container port
+
+### Q3: Command to run container?
+
+👉 `docker run`
+
+### Q4: What does `-d` do?
+
+👉 Runs container in background
+
+### Q5: How to check running containers?
+
+👉 `docker ps`
+
+---
+
+If you want, next I can give:
+✔ Practical 14 (Push to Docker Hub)
+✔ Practical 20 (Lifecycle management)
+
+same format 👍

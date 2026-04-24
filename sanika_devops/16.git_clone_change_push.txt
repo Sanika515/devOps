@@ -1,0 +1,55 @@
+Demonstration: Clone → Modify → Push → Modify Again → Push Again using GitHub
+🔹 Step 1: Create Repository on GitHub
+Go to GitHub
+Click New Repository
+Name: demo-repo
+✅ Add README
+Click Create Repository
+🔹 Step 2: Clone Repository
+git clone https://github.com/your-username/demo-repo.git
+cd demo-repo
+🔹 Step 3: Create File
+touch index.html
+
+Add content:
+
+<h1>Hello GitHub</h1>
+🔹 Step 4: First Commit & Push
+git add .
+git commit -m "Added index.html file"
+git push origin main
+
+👉 First version is now live on GitHub
+
+🔥 NOW THE IMPORTANT PART (Second Change Using vim)
+
+This is what makes your answer stand out 👇
+
+🔹 Step 5: Edit File Using Vim
+vim index.html
+
+Inside vim:
+
+Press i (insert mode)
+Add a new line:
+<p>Second update from vim editor</p>
+Press ESC
+Type :wq → Save & Exit
+🔹 Step 6: Check Changes
+git status
+
+👉 Shows modified file
+
+🔹 Step 7: Second Commit
+git add .
+git commit -m "Updated index.html using vim"
+🔹 Step 8: Push Again
+git push origin main
+
+👉 Boom. Second update also live.
+
+⚡ Final Output (What You Say in Viva)
+
+“I cloned the repository from GitHub, created and pushed an initial file. Then I modified the same file using vim editor, committed the changes again, and pushed the updated version to the remote repository.”
+
+🔥 What You Just Demon

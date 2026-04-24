@@ -1,0 +1,74 @@
+Practical 15
+Write an Ansible playbook to install multiple packages and ensure idempotency
+🔹 Aim
+
+To install multiple packages using Ansible and demonstrate idempotent behavior.
+
+🔹 Theory
+🔸 Multiple Packages
+Ansible allows installing multiple packages in one task using a list
+🔸 Idempotency
+Running the same playbook multiple times
+Should not cause repeated changes
+System remains in desired state
+
+👉 Translation:
+Run it 1 time or 10 times → same result
+
+🔹 Requirements
+Ansible installed
+Inventory file (my_inventory.ini)
+🔹 Steps
+✅ Step 1: Create Playbook
+			vim multi_package.yml
+
+Paste:
+
+- name: Install Multiple Packages
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install required packages
+      apt:
+        name:
+          - nginx
+          - git
+          - curl
+        state: present
+        update_cache: yes
+
+
+✅ Step 2: Run Playbook
+			ansible-playbook -i my_inventory.ini multi_package.yml
+🔹 Output
+First Run:
+TASK [Install required packages]
+changed: [localhost]
+
+👉 Packages installed
+
+Second Run:
+TASK [Install required packages]
+ok: [localhost]
+
+👉 No changes
+
+🔹 Working Explanation
+Playbook installs nginx, git, curl
+First run → packages not present → installed (changed)
+Second run → already installed → no action (ok)
+🔹 Conclusion
+
+Multiple packages were installed successfully, and idempotent behavior was achieved.
+
+🔹 Viva Questions
+
+Q1: What is idempotency?
+👉 Same result on repeated execution.
+
+Q2: How does Ansible ensure idempotency?
+👉 By checking current system state before executing tasks.
+
+Q3: Why use state: present?
+👉 Ensures package is installed only if not already present.

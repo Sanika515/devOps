@@ -1,0 +1,108 @@
+Create, Manage Branches & Merge (Real Demo) using GitHub
+🧠 Scenario (keep it simple)
+main → stable code
+feature-ui → new feature
+feature-fix → bug fix
+🔹 Step 1: Create Repository & Clone
+git clone https://github.com/your-username/demo-repo.git
+cd demo-repo
+🔹 Step 2: Create Initial File in Main
+touch index.html
+
+Add:
+
+<h1>Main Branch Code</h1>
+git add .
+git commit -m "Initial commit"
+git push origin main
+🔹 Step 3: Create a New Branch (feature-ui)
+git checkout -b feature-ui
+
+👉 You’ve branched off from main
+
+🔹 Step 4: Make Changes in feature-ui
+
+Edit file:
+
+vim index.html
+
+Add:
+
+<p>UI Feature Added</p>
+
+Save → :wq
+
+git add .
+git commit -m "Added UI feature"
+git push origin feature-ui
+🔹 Step 5: Create Another Branch (feature-fix)
+
+Switch back:
+
+git checkout main
+
+Create new branch:
+
+git checkout -b feature-fix
+🔹 Step 6: Make Fix Changes
+vim index.html
+
+Add:
+
+<p>Bug Fix Applied</p>
+git add .
+git commit -m "Fixed bug"
+git push origin feature-fix
+🔥 NOW MERGING (This is the actual answer)
+🔹 Step 7: Merge feature-ui into main (FAST-FORWARD or NORMAL)
+git checkout main
+git merge feature-ui
+
+👉 If no conflict → Git auto merges
+
+Push:
+
+git push origin main
+🔹 Step 8: Merge feature-fix into main
+git merge feature-fix
+
+👉 If changes are in different lines → smooth merge
+👉 If same lines → conflict (you resolve manually)
+
+🔥 Merge Strategies (Exam Gold 🔥)
+1️⃣ Fast-Forward Merge
+Happens when no divergence
+Clean linear history
+git merge feature-ui
+2️⃣ Recursive / 3-Way Merge (Most Common)
+When branches diverge
+Git creates a merge commit
+git merge feature-fix
+3️⃣ No Fast Forward (Force Merge Commit)
+
+Used to keep history visible
+
+git merge --no-ff feature-ui
+
+👉 Even if fast-forward possible, it creates a merge commit
+
+4️⃣ Squash Merge (Clean History)
+git merge --squash feature-ui
+git commit -m "Merged UI feature cleanly"
+
+👉 Combines all commits into one
+
+🔹 Step 9: Delete Branches (Clean Repo)
+git branch -d feature-ui
+git branch -d feature-fix
+⚡ Final Viva Answer (Say this confidently)
+
+“I created separate feature branches, made independent changes, and merged them into the main branch using appropriate strategies like fast-forward and recursive merge. I also demonstrated squash and no-fast-forward merges for better history management.”
+
+⚠️ Common Mistakes (Don’t embarrass yourself 😅)
+Working directly on main ❌
+Not switching branches properly ❌
+Forgetting to push before merge ❌
+💡 Real Dev Insight (Sounds senior instantly)
+
+“We use feature branching with controlled merges to avoid breaking production and maintain clean version history.”
