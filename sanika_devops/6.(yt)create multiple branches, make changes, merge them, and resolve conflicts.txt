@@ -1,0 +1,506 @@
+# 🧪 **Branch Creation, Merging, and Conflict Resolution in GitHub**
+
+---
+
+# 🎯 Aim
+
+To create multiple branches, make changes, merge them, and resolve conflicts using Git and GitHub.
+
+---
+
+# 📘 Theory
+
+### 🔹 Branch
+
+A separate line of development used to work independently.
+
+### 🔹 Merge
+
+Combining changes from one branch into another.
+
+### 🔹 Merge Conflict
+
+Occurs when the same part of a file is modified in different branches.
+
+---
+
+### 🔹 Types of Merge
+
+* **Fast-forward** → simple update
+* **Three-way merge** → creates merge commit
+* **Conflict merge** → requires manual resolution
+
+---
+
+# ⚙️ Requirements
+
+* Existing repository (`github-demo`)
+* At least one committed file (`file.txt`)
+
+---
+
+Sep 0: Create a folder name "git-branch-demo", open git bash there, then do
+		git init -b main
+
+create a text doc-> trial.txt
+-> write feature1 
+-> git add .
+-> git commit -m "feature1" 
+
+1. Create a repo in GitHub
+-> use those existing commands in that GitHub repo.(3)
+->edit in that file feature 2 -> git add . , git commit -m "feature2"
+->edit in that file feature 2 -> git add . , git commit -m "feature2"
+
+---
+
+## 🔹 Step 3: Modify File in feature1
+
+```cmd
+echo Feature1 change >> file.txt
+```
+
+Check:
+
+```cmd
+type file.txt
+```
+
+---
+
+## 🔹 Step 4: Commit Changes
+
+```cmd
+git add file.txt
+git commit -m "Added changes in feature1"
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+1 file changed, 1 insertion(+)
+```
+
+---
+
+## 🔹 Step 5: Create Second Branch from Main
+
+```cmd
+git checkout main
+git branch feature2
+git checkout feature2
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+Switched to branch 'feature2'
+```
+
+---
+
+## 🔹 Step 6: Modify Same File (Create Conflict)
+
+```cmd
+echo Feature2 change >> file.txt
+```
+
+---
+
+## 🔹 Step 7: Commit Changes
+
+```cmd
+git add file.txt
+git commit -m "Added changes in feature2"
+```
+
+---
+
+## 🔹 Step 8: Merge feature1 into main
+
+```cmd
+git checkout main
+git merge feature1
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+Fast-forward
+ file.txt | 1 +
+```
+
+---
+
+## 🔹 Step 9: Merge feature2 (Conflict Occurs)
+
+```cmd
+git merge feature2
+```
+
+---
+
+### ❗ Expected Output (Conflict)
+
+```text
+Auto-merging file.txt
+CONFLICT (content): Merge conflict in file.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+---
+
+## 🔹 Step 10: View Conflict
+
+```cmd
+type file.txt
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+Hello GitHub
+<<<<<<< HEAD
+Feature1 change
+=======
+Feature2 change
+>>>>>>> feature2
+```
+
+---
+
+## 🔹 Step 11: Resolve Conflict Manually
+
+Edit file to:
+
+```text
+Hello GitHub
+Feature1 change
+Feature2 change
+```
+
+---
+
+## 🔹 Step 12: Final Commit After Resolution
+
+```cmd
+git add file.txt
+git commit -m "Resolved merge conflict between feature1 and feature2"
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+[main] Resolved merge conflict...
+```
+
+---
+
+## 🔹 Step 13: Push Changes to GitHub
+
+```cmd
+git push origin main
+```
+
+---
+
+# 📊 Result
+
+* Branches created successfully
+* Changes made independently
+* Merge conflict generated
+* Conflict resolved manually
+* Final merged code pushed to GitHub
+
+---
+
+# ⚠️ Common Errors
+
+### 🔸 Merge conflict not resolved
+
+→ Must edit file manually
+
+### 🔸 Wrong branch
+
+```cmd
+git checkout main
+```
+
+---
+
+# 🧠 Key Concepts
+
+* Branching allows parallel development
+* Merge combines code changes
+* Conflict occurs due to overlapping edits
+* Manual resolution is required
+
+---
+
+# ❓ Viva Questions
+
+**Q1. What is a branch?**
+→ Independent line of development
+
+**Q2. What is merge conflict?**
+→ When same file is edited in multiple branches
+
+**Q3. How to resolve conflict?**
+→ Edit file manually and commit
+
+**Q4. What is HEAD?**
+→ Current working branch pointer
+
+You’re getting this error because you are **not inside your Git repository folder**.
+
+---
+
+# ❌ Problem
+
+Your prompt shows:
+
+```text
+C:\Users\Pallavi>
+```
+
+👉 This means you are in the **home directory**, not in `github-demo`.
+
+So Git cannot find:
+
+* any commits
+* any branch (`master` / `main`)
+
+That’s why:
+
+```text
+fatal: not a valid object name: 'master'
+```
+
+---
+
+# ✅ Fix (Do This First)
+
+## 🔹 Step 1: Go to your project folder
+
+```cmd
+cd github-demo
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+C:\Users\Pallavi\github-demo>
+```
+
+---
+
+## 🔹 Step 2: Check branch
+
+```cmd
+git branch
+```
+
+### ✔️ Expected Output
+
+```text
+* main
+```
+
+---
+
+# 🔁 Now Continue Practical
+
+## 🔹 Create branch
+
+```cmd
+git branch feature1
+git checkout feature1
+```
+
+---
+
+### ✔️ Expected Output
+
+```text
+Switched to branch 'feature1'
+```
+
+---
+
+# 🧠 Important Concept (Very Important)
+
+### 🔹 Why error happened?
+
+Git works **per repository**, not globally.
+
+👉 If you are outside repo:
+
+* No `.git` folder
+* No branches
+* No history
+
+---
+
+# ⚠️ Rule to Remember
+
+👉 Always check this before running Git commands:
+
+```cmd
+git status
+```
+
+If you see:
+
+```text
+fatal: not a git repository
+```
+
+→ You are in wrong folder
+
+---
+
+# ✅ Summary
+
+| Issue              | Fix                    |
+| ------------------ | ---------------------- |
+| Wrong directory ❌  | Go to project folder ✅ |
+| No repo detected ❌ | Use `cd github-demo` ✅ |
+| Branch error ❌     | Run inside repo ✅      |
+
+---
+
+You should do **Step 11 (resolve conflict)** **inside your project repository folder**, not in `C:\Users\Pallavi`.
+
+---
+
+# ✅ Correct Location
+
+First go to your repo:
+
+```cmd
+cd github-demo
+```
+
+✔️ Prompt should look like:
+
+```text
+C:\Users\Pallavi\github-demo>
+```
+
+---
+
+# ⚠️ Important Condition
+
+👉 Step 11 is done **ONLY AFTER this error appears**:
+
+```text
+CONFLICT (content): Merge conflict in file.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+If you **haven’t seen this**, don’t jump to Step 11.
+
+---
+
+# 🔹 Where Step 11 Happens
+
+After running:
+
+```cmd
+git merge feature2
+```
+
+AND you get conflict → THEN do Step 11.
+
+---
+
+# 🔹 Step 11 (Proper Execution)
+
+## 1. Open file
+
+```cmd
+notepad file.txt
+```
+
+---
+
+## 2. You will see:
+
+```text
+Hello GitHub
+<<<<<<< HEAD
+Feature1 change
+=======
+Feature2 change
+>>>>>>> feature2
+```
+
+---
+
+## 3. Edit it to:
+
+```text
+Hello GitHub
+Feature1 change
+Feature2 change
+```
+
+👉 Remove:
+
+* `<<<<<<<`
+* `=======`
+* `>>>>>>>`
+
+---
+
+## 4. Save and close file
+
+---
+
+## 5. Final commands
+
+```cmd
+git add file.txt
+git commit -m "Resolved merge conflict"
+```
+
+---
+
+# ✔️ Expected Output
+
+```text
+[main] Resolved merge conflict
+```
+
+---
+
+# 🧠 Simple Flow
+
+```
+Merge → Conflict → Edit file → Add → Commit
+```
+
+---
+
+# ❗ Common Mistake
+
+❌ Doing Step 11 without conflict
+❌ Doing outside repo folder
+
+---
+
+If you want, I can:
+👉 check your current step and tell exactly what to run next (live guidance)
+
