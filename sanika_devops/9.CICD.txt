@@ -1,0 +1,406 @@
+Great—your setup is **fully correct and working** ✔
+Now I’ll give you a **clean, reusable, exam-ready + real-world guide** based on *your actual setup (custom ports)*.
+
+---
+
+# ✅ COMPLETE PRACTICAL (FINAL VERSION – YOUR SETUP)
+
+---
+
+# 🎯 AIM
+
+To design a CI/CD pipeline using Jenkins, deploy an application using Docker, and monitor system performance using Prometheus and Grafana.
+
+---
+
+# 🧠 CORE CONCEPTS (VERY IMPORTANT)
+
+---
+
+## 🔹 1. CI/CD (Continuous Integration & Deployment)
+
+* **CI** → Automatically build code after changes
+* **CD** → Automatically deploy application
+
+👉 Flow:
+
+```text
+GitHub → Jenkins → Docker → Running App
+```
+
+---
+
+## 🔹 2. Jenkins
+
+* Automation tool
+* Uses **Pipeline (stages)**:
+
+  * Clone Code
+  * Build
+  * Deploy
+
+---
+
+## 🔹 3. Docker
+
+* Containerization platform
+* Packages app + environment together
+* Runs app on any system
+
+---
+
+## 🔹 4. Prometheus
+
+* Collects system metrics
+* Pull-based monitoring system
+
+---
+
+## 🔹 5. Grafana
+
+* Visualizes data
+* Dashboards for CPU, Memory, etc.
+
+---
+
+# ⚙️ YOUR PORT CONFIGURATION (IMPORTANT)
+
+| Service    | Port |
+| ---------- | ---- |
+| Jenkins    | 9090 |
+| App        | 8082 |
+| Prometheus | 9091 |
+| Grafana    | 3000 |
+
+👉 You can change ports → just keep them **unique**
+
+---
+
+# ⚙️ COMPLETE PROCEDURE
+
+---
+
+# 🔹 STEP 1 — RUN JENKINS
+
+```bash
+docker run -d \
+--name jenkins \
+-p 9090:8080 \
+-p 50001:50000 \
+-v jenkins_home:/var/jenkins_home \
+-v /var/run/docker.sock:/var/run/docker.sock \
+jenkins/jenkins:lts
+```
+
+---
+
+# 🔹 STEP 2 — OPEN JENKINS
+
+```
+http://localhost:9090
+```
+
+---
+
+# 🔹 STEP 3 — GET PASSWORD
+
+```bash
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+---
+
+# 🔹 STEP 4 — INSTALL PLUGINS + CREATE USER
+
+* Install suggested plugins
+* Create admin account
+
+---
+
+# 🔹 STEP 5 — ENABLE DOCKER IN JENKINS
+
+```bash
+docker exec -u 0 -it jenkins bash
+
+apt update
+apt install docker.io -y
+chmod 666 /var/run/docker.sock
+usermod -aG docker jenkins
+
+exit
+docker restart jenkins
+```
+
+---
+
+# 🔹 STEP 6 — CREATE GITHUB REPO
+
+Files:
+
+### index.html
+
+```html
+<h1>Jenkins CI/CD Pipeline Working 🚀</h1>
+```
+
+### Dockerfile
+
+```dockerfile
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+```
+
+---
+
+# 🔹 STEP 7 — CREATE PIPELINE
+
+```groovy
+pipeline {
+ agent any
+ stages {
+  stage('Clone Code') {
+   steps {
+    git branch: 'main', url: 'YOUR_REPO_LINK'
+   }
+  }
+  stage('Build Docker Image') {
+   steps {
+    sh 'docker build -t jenkins-app .'
+   }
+  }
+  stage('Run Container') {
+   steps {
+    sh '''
+    docker stop jenkins-container || true
+    docker rm jenkins-container || true
+    docker run -d -p 8082:80 --name jenkins-container jenkins-app
+    '''
+   }
+  }
+ }
+}
+```
+
+---
+
+# 🔹 STEP 8 — RUN PIPELINE
+
+Click:
+
+```
+Build Now
+```
+
+---
+
+# 🔹 STEP 9 — CHECK APPLICATION
+
+```
+http://localhost:8082
+```
+
+---
+
+# 📊 MONITORING SETUP
+
+---
+
+# 🔹 STEP 10 — CREATE NETWORK
+
+```bash
+docker network create monitoring
+```
+
+---
+
+# 🔹 STEP 11 — NODE EXPORTER
+
+```bash
+docker run -d \
+--name node-exporter \
+--network monitoring \
+-p 9100:9100 \
+prom/node-exporter
+```
+
+---
+
+# 🔹 STEP 12 — PROMETHEUS CONFIG
+
+```bash
+vim prometheus.yml
+```
+
+```yaml
+global:
+ scrape_interval: 5s
+
+scrape_configs:
+ - job_name: 'node'
+   static_configs:
+   - targets: ['node-exporter:9100']
+```
+
+---
+
+# 🔹 STEP 13 — RUN PROMETHEUS
+
+```bash
+docker run -d \
+--name prometheus \
+--network monitoring \
+-p 9091:9090 \
+-v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \
+prom/prometheus
+```
+
+---
+
+# 🔹 STEP 14 — OPEN PROMETHEUS
+
+```
+http://localhost:9091
+```
+
+✔ Status → Targets → UP
+
+---
+
+# 🔹 STEP 15 — RUN GRAFANA
+
+```bash
+docker run -d \
+--name grafana \
+--network monitoring \
+-p 3000:3000 \
+grafana/grafana
+```
+
+---
+
+# 🔹 STEP 16 — OPEN GRAFANA
+
+```
+http://localhost:3000
+```
+
+Login:
+
+```
+admin / admin
+```
+
+---
+
+# 🔹 STEP 17 — CONNECT PROMETHEUS
+
+👉 IMPORTANT:
+
+```
+http://prometheus:9090
+```
+
+NOT localhost ❌
+
+---
+
+# 🔹 STEP 18 — IMPORT DASHBOARD
+
+ID:
+
+```
+1860
+```
+
+---
+
+# ✅ EXPECTED OUTPUT
+
+* Jenkins → pipeline success
+* App → running on 8082
+* Prometheus → target UP
+* Grafana → dashboard visible
+
+---
+
+# 🧠 IMPORTANT UNDERSTANDING
+
+---
+
+## 🔹 Port Mapping
+
+```bash
+-p 9091:9090
+```
+
+Means:
+
+* Outside → 9091
+* Inside → 9090
+
+---
+
+## 🔹 Docker Networking
+
+* Containers communicate using **names**
+* Example:
+
+```
+http://prometheus:9090
+```
+
+---
+
+## 🔹 Why not localhost?
+
+| Location            | Meaning              |
+| ------------------- | -------------------- |
+| localhost (Grafana) | Grafana container    |
+| prometheus          | Prometheus container |
+
+---
+
+# ⚠️ COMMON ERRORS
+
+| Error              | Reason                   | Fix                |
+| ------------------ | ------------------------ | ------------------ |
+| docker not found   | Not installed in Jenkins | install docker     |
+| port already used  | conflict                 | change port        |
+| connection refused | wrong URL                | use container name |
+
+---
+
+# 🧾 FINAL RESULT
+
+> Successfully implemented CI/CD pipeline using Jenkins and Docker. Monitoring was integrated using Prometheus and Grafana, providing real-time visualization of system performance.
+
+---
+
+# 🎯 WHAT YOU LEARNED
+
+✔ CI/CD pipeline
+✔ Docker deployment
+✔ Monitoring setup
+✔ Networking in Docker
+
+---
+
+# 🚀 NEXT TIME (REUSABLE CHECKLIST)
+
+1. Start Docker
+2. Run Jenkins
+3. Setup pipeline
+4. Run app
+5. Setup monitoring
+6. Connect Grafana
+
+---
+
+If you want, I can give:
+
+* ⭐ PDF format
+* ⭐ Viva Q&A
+* ⭐ Diagram for exam
+
+Just tell 👍
